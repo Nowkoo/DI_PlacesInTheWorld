@@ -6,12 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Face
@@ -36,10 +38,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -86,7 +92,8 @@ class MainActivity : ComponentActivity() {
                         FloatingActionButton(
                             onClick = {  },
                             Modifier
-                                .align(Alignment.BottomEnd),
+                                .align(Alignment.BottomEnd)
+                                .padding(bottom = 40.dp),
                             containerColor = MaterialTheme.colorScheme.secondary
                         ) {
                             Icon(Icons.Filled.ArrowBack, "Floating action button.")
@@ -171,19 +178,32 @@ fun getPlaces(): List<Place> {
 @Composable
 fun ItemPlace(place: Place, navController: NavController) {
     Box(
-        Modifier.clickable { navController.navigate("About/${place.nombre}/${place.foto}") }
+        Modifier
+            .clickable { navController.navigate("About/${place.nombre}/${place.foto}") }
+            .padding(2.dp)
     ) {
         Image(
             painter = painterResource(place.foto),
             contentDescription = place.nombre,
             Modifier
-                .fillMaxWidth()
-                .padding(2.dp),
+                .fillMaxWidth(),
             contentScale = ContentScale.Crop
         )
 
-        Text(
-            text = place.nombre
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Black.copy(alpha = 0.3f))
+                .align(Alignment.TopStart)
+                .padding(8.dp)
+        ) {
+            Text(
+                text = place.nombre,
+                color = Color.White,
+                fontSize = 22.sp,
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.padding(5.dp)
+            )
+        }
     }
 }

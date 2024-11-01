@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.placesintheworld.ui.theme.saltyOcean
@@ -33,7 +34,9 @@ fun About(nombre: String?, foto: Int?, modifier: Modifier) {
     var sliderPosition by remember { mutableFloatStateOf(0f) }
 
     Column (
-        modifier.fillMaxSize().background(MaterialTheme.colorScheme.primary),
+        modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primary),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (nombre != null) {
@@ -41,7 +44,9 @@ fun About(nombre: String?, foto: Int?, modifier: Modifier) {
                 text = nombre,
                 fontFamily = saltyOcean,
                 fontSize = 65.sp,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier =  Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
         }
 
@@ -50,18 +55,19 @@ fun About(nombre: String?, foto: Int?, modifier: Modifier) {
                 painter = painterResource(foto),
                 contentDescription = nombre,
                 Modifier
-//                    .size(200.dp)
+                    .size(300.dp)
                     .fillMaxWidth()
                     .padding(2.dp)
                     .graphicsLayer {
                         rotationY = sliderPosition
                     },
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Fit
             )
         }
 
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(10.dp)
         ) {
             Text(
                 text = "Rotación ",
