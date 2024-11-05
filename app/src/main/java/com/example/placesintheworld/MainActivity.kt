@@ -90,7 +90,7 @@ class MainActivity : ComponentActivity() {
 
                     Box(Modifier.padding(20.dp).fillMaxSize()) {
                         FloatingActionButton(
-                            onClick = {  },
+                            onClick = { navController.navigate("pantallaInicial") },
                             Modifier
                                 .align(Alignment.BottomEnd)
                                 .padding(bottom = 40.dp),
